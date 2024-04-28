@@ -8,11 +8,11 @@ function.
 """
 
 """
-    model_parameters(m::GaussianHjmModel)
+    model_parameters(m::Union{GaussianHjmModel, GaussianHjmModelStatic})
 
-Extract model parameters from GaussianHjmModel.
+Extract model parameters from GaussianHjmModel and GaussianHjmModelStatic.
 """
-function model_parameters(m::GaussianHjmModel)
+function model_parameters(m::Union{GaussianHjmModel, GaussianHjmModelStatic})
     d = Dict{String, Any}()
     d["type"]    = typeof(m)
     d["alias"]   = m.alias
@@ -115,6 +115,26 @@ function build_model(
             quanto_model = model_dict[m_dict["quanto_model"]]
         end
         return gaussian_hjm_model(
+            m_dict["alias"],
+            m_dict["delta"],
+            m_dict["chi"],
+            m_dict["sigma_f"],
+            ch,
+            quanto_model,
+        )
+    end
+    if m_dict["type"] == GaussianHjmModelStatic
+        if isnothing(m_dict["correlation_holder"])
+            ch = nothing
+        else
+            ch = param_dict[m_dict["correlation_holder"]]
+        end
+        if isnothing(m_dict["quanto_model"])
+            quanto_model = nothing
+        else
+            quanto_model = model_dict[m_dict["quanto_model"]]
+        end
+        return gaussian_hjm_model_static(
             m_dict["alias"],
             m_dict["delta"],
             m_dict["chi"],
@@ -246,7 +266,7 @@ function model_volatility_values(
     m_dict = param_dict[alias]
     #
     @assert(haskey(m_dict, "type"))
-    if m_dict["type"] == GaussianHjmModel
+    if m_dict["type"] ∈ (GaussianHjmModel, GaussianHjmModelStatic)
         return _get_labels_and_values(alias, "sigma_f", m_dict)
     end
     if m_dict["type"] == LognormalAssetModel

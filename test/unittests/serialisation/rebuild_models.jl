@@ -43,7 +43,7 @@ using Test
         times_for =  [ 0. ]
         values_for = [ 80. 90. ]' * 1.0e-4
         sigma_f_for = DiffFusion.backward_flat_volatility("EUR",times_for,values_for)
-        hjm_model_for = DiffFusion.gaussian_hjm_model("EUR",delta_for,chi_for,sigma_f_for,ch,fx_model)
+        hjm_model_for = DiffFusion.gaussian_hjm_model_static("EUR",delta_for,chi_for,sigma_f_for,ch,fx_model)
     
         return [ hjm_model_dom, fx_model, hjm_model_for, eq_model ]
     end

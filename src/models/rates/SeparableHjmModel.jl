@@ -93,7 +93,8 @@ end
 Benchmark times volatility scaling matrix ``H [H^f]^{-1} = [H^f H^{-1}]^{-1}``.
 """
 function benchmark_times_scaling(chi::AbstractVector, delta::AbstractVector)
-    Hf_H_inv = [ exp(-chi_ * delta_) for delta_ in delta, chi_ in chi ]  # beware the order of loops!
+    # Hf_H_inv = [ exp(-chi_ * delta_) for delta_ in delta, chi_ in chi ]  # beware the order of loops!
+    Hf_H_inv = exp.(-delta * chi')
     HHfInv = inv(Hf_H_inv)
     return HHfInv
 end
@@ -119,7 +120,8 @@ function func_y(
     t::ModelTime,
     )
     # better exploit symmetry and update in-place
-    chi_i_p_chi_j = [ (chi_i + chi_j) for chi_i in chi, chi_j in chi ]
+    # chi_i_p_chi_j = [ (chi_i + chi_j) for chi_i in chi, chi_j in chi ]
+    chi_i_p_chi_j = chi .+ chi'
     H_i_j = exp.(-chi_i_p_chi_j .* (t-s))
     V = sigmaT * transpose(sigmaT)
     # this is unsafe, better use Taylor expansion
@@ -147,7 +149,8 @@ function _func_y(
     t::ModelTime,
     )
     # better exploit symmetry and update in-place
-    chi_i_p_chi_j = [ (chi_i + chi_j) for chi_i in chi, chi_j in chi ]
+    # chi_i_p_chi_j = [ (chi_i + chi_j) for chi_i in chi, chi_j in chi ]
+    chi_i_p_chi_j = chi .+ chi'
     H_i_j = exp.(-chi_i_p_chi_j .* (t-s))
     V = sigmaT * transpose(sigmaT)
     # this is unsafe, better use Taylor expansion

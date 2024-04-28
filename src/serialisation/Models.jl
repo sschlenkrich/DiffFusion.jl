@@ -35,6 +35,33 @@ end
 
 
 """
+    serialise(o::GaussianHjmModelStatic)
+
+Serialise GaussianHjmModelStatic.
+"""
+function serialise(o::GaussianHjmModelStatic)
+    d = OrderedDict{String, Any}()
+    d["typename"]    = string(typeof(o))
+    d["constructor"] = "gaussian_hjm_model_static"
+    d["alias"]       = serialise(o.alias)
+    d["delta"]       = serialise(o.delta)
+    d["chi"]         = serialise(o.chi)
+    d["sigma_f"]     = serialise(o.sigma_T.sigma_f)
+    if isnothing(o.correlation_holder)
+        d["correlation_holder"]  = serialise(o.correlation_holder)
+    else
+        d["correlation_holder"]  = serialise_key(o.correlation_holder.alias)
+    end
+    if isnothing(o.quanto_model)
+        d["quanto_model"] = serialise(o.quanto_model)
+    else
+        d["quanto_model"] = serialise_key(o.quanto_model.alias)
+    end
+    return d
+end
+
+
+"""
     serialise(o::LognormalAssetModel)
 
 Serialise LognormalAssetModel.

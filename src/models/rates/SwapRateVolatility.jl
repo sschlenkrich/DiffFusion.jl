@@ -2,7 +2,7 @@
 """
     zero_bonds(
         yts::YieldTermstructure,
-        m::GaussianHjmModel,
+        m::Union{GaussianHjmModel, GaussianHjmModelStatic},
         t::ModelTime,
         T::AbstractVector,
         SX::ModelState,
@@ -14,7 +14,7 @@ Returns a vector of length p where p is the number of paths in SX.
 """
 function zero_bonds(
     yts::YieldTermstructure,
-    m::GaussianHjmModel,
+    m::Union{GaussianHjmModel, GaussianHjmModelStatic},
     t::ModelTime,
     T::AbstractVector,
     SX::ModelState,
@@ -31,7 +31,7 @@ end
 """
     swap_rate_gradient(
         yts::YieldTermstructure,
-        m::GaussianHjmModel,
+        m::Union{GaussianHjmModel, GaussianHjmModelStatic},
         t::ModelTime,
         swap_times::AbstractVector,
         yf_weights::AbstractVector,
@@ -58,7 +58,7 @@ The model state is encoded in `SX`.
 """
 function swap_rate_gradient(
     yts::YieldTermstructure,
-    m::GaussianHjmModel,
+    m::Union{GaussianHjmModel, GaussianHjmModelStatic},
     t::ModelTime,
     swap_times::AbstractVector,
     yf_weights::AbstractVector,
@@ -85,7 +85,7 @@ end
 """
     swap_rate_instantaneous_covariance(
         yts::YieldTermstructure,
-        m::GaussianHjmModel,
+        m::Union{GaussianHjmModel, GaussianHjmModelStatic},
         t::ModelTime,
         swap_times_1::AbstractVector,
         yf_weights_1::AbstractVector,
@@ -101,7 +101,7 @@ input parameters.
 """
 function swap_rate_instantaneous_covariance(
     yts::YieldTermstructure,
-    m::GaussianHjmModel,
+    m::Union{GaussianHjmModel, GaussianHjmModelStatic},
     t::ModelTime,
     swap_times_1::AbstractVector,
     yf_weights_1::AbstractVector,
@@ -123,7 +123,7 @@ end
 """
     swap_rate_volatility²(
         yts::YieldTermstructure,
-        m::GaussianHjmModel,
+        m::Union{GaussianHjmModel, GaussianHjmModelStatic},
         t::ModelTime,
         swap_times::AbstractVector,
         yf_weights::AbstractVector,
@@ -136,7 +136,7 @@ See method `swap_rate_gradient` for details on the input parameters.
 """
 function swap_rate_volatility²(
     yts::YieldTermstructure,
-    m::GaussianHjmModel,
+    m::Union{GaussianHjmModel, GaussianHjmModelStatic},
     t::ModelTime,
     swap_times::AbstractVector,
     yf_weights::AbstractVector,
@@ -153,7 +153,7 @@ end
 """
     swap_rate_covariance(
         yts::YieldTermstructure,
-        m::GaussianHjmModel,
+        m::Union{GaussianHjmModel, GaussianHjmModelStatic},
         t::ModelTime,
         T::ModelTime,
         swap_times_1::AbstractVector,
@@ -169,7 +169,7 @@ See method `swap_rate_gradient` for details on the input parameters.
 """
 function swap_rate_covariance(
     yts::YieldTermstructure,
-    m::GaussianHjmModel,
+    m::Union{GaussianHjmModel, GaussianHjmModelStatic},
     t::ModelTime,
     T::ModelTime,
     swap_times_1::AbstractVector,
@@ -188,7 +188,7 @@ end
 """
     swap_rate_variance(
         yts::YieldTermstructure,
-        m::GaussianHjmModel,
+        m::Union{GaussianHjmModel, GaussianHjmModelStatic},
         t::ModelTime,
         T::ModelTime,
         swap_times::AbstractVector,
@@ -204,7 +204,7 @@ See method `swap_rate_gradient` for details on further input parameters.
 """
 function swap_rate_variance(
     yts::YieldTermstructure,
-    m::GaussianHjmModel,
+    m::Union{GaussianHjmModel, GaussianHjmModelStatic},
     t::ModelTime,
     T::ModelTime,
     swap_times::AbstractVector,
@@ -220,7 +220,7 @@ end
 
 """
     swap_rate_variance(
-        m::GaussianHjmModel,
+        m::Union{GaussianHjmModel, GaussianHjmModelStatic},
         alias::String,
         yts::YieldTermstructure,
         t::ModelTime,
@@ -237,7 +237,7 @@ This function is implements the Model interface function.
 See method `swap_rate_gradient` for details on further input parameters.
 """
 function swap_rate_variance(
-    m::GaussianHjmModel,
+    m::Union{GaussianHjmModel, GaussianHjmModelStatic},
     alias::String,
     yts::YieldTermstructure,
     t::ModelTime,
@@ -255,7 +255,7 @@ end
 """
     swap_rate_correlation(
         yts::YieldTermstructure,
-        m::GaussianHjmModel,
+        m::Union{GaussianHjmModel, GaussianHjmModelStatic},
         t::ModelTime,
         T::ModelTime,
         swap_times_1::AbstractVector,
@@ -272,7 +272,7 @@ See method `swap_rate_gradient` for details on further input parameters.
 """
 function swap_rate_correlation(
     yts::YieldTermstructure,
-    m::GaussianHjmModel,
+    m::Union{GaussianHjmModel, GaussianHjmModelStatic},
     t::ModelTime,
     T::ModelTime,
     swap_times_1::AbstractVector,
@@ -292,7 +292,7 @@ end
 """
     model_implied_volatilties(
         yts::YieldTermstructure,
-        m::GaussianHjmModel,
+        m::Union{GaussianHjmModel, GaussianHjmModelStatic},
         option_times::AbstractVector,
         swap_times::AbstractMatrix,
         swap_weights::AbstractMatrix,
@@ -313,7 +313,7 @@ See method `swap_rate_gradient` for details on further input parameters.
 """
 function model_implied_volatilties(
     yts::YieldTermstructure,
-    m::GaussianHjmModel,
+    m::Union{GaussianHjmModel, GaussianHjmModelStatic},
     option_times::AbstractVector,
     swap_times::AbstractMatrix,
     swap_weights::AbstractMatrix,
@@ -340,7 +340,7 @@ end
 """
     model_implied_volatilties(
         yts::YieldTermstructure,
-        m::GaussianHjmModel,
+        m::Union{GaussianHjmModel, GaussianHjmModelStatic},
         option_times::AbstractVector,
         swap_times::AbstractVector,
         swap_weights::AbstractVector,
@@ -363,7 +363,7 @@ See method `swap_rate_gradient` for details on further input parameters.
 """
 function model_implied_volatilties(
     yts::YieldTermstructure,
-    m::GaussianHjmModel,
+    m::Union{GaussianHjmModel, GaussianHjmModelStatic},
     option_times::AbstractVector,
     swap_times::AbstractVector,
     swap_weights::AbstractVector,
@@ -386,7 +386,7 @@ end
 """
     model_implied_volatilties(
         yts::YieldTermstructure,
-        m::GaussianHjmModel,
+        m::Union{GaussianHjmModel, GaussianHjmModelStatic},
         option_times::AbstractVector,
         swap_maturities::AbstractVector,
         SX::Union{ModelState, Nothing} = nothing
@@ -403,7 +403,7 @@ See method `swap_rate_gradient` for details on further input parameters.
 """
 function model_implied_volatilties(
     yts::YieldTermstructure,
-    m::GaussianHjmModel,
+    m::Union{GaussianHjmModel, GaussianHjmModelStatic},
     option_times::AbstractVector,
     swap_maturities::AbstractVector,
     SX::Union{ModelState, Nothing} = nothing

@@ -49,7 +49,7 @@ using YAML
         times_for =  [ 0. ]
         values_for = [ 80. 90. ]' * 1.0e-4
         sigma_f_for = DiffFusion.backward_flat_volatility("EUR",times_for,values_for)
-        hjm_model_for = DiffFusion.gaussian_hjm_model("EUR",delta_for,chi_for,sigma_f_for,ch,fx_model)
+        hjm_model_for = DiffFusion.gaussian_hjm_model_static("EUR",delta_for,chi_for,sigma_f_for,ch,fx_model)
 
         return [ hjm_model_dom, fx_model, hjm_model_for, eq_model ]
     end
@@ -99,8 +99,8 @@ using YAML
         #
         s = DiffFusion.serialise(models[3])
         d = OrderedDict(
-            "typename" => "DiffFusion.GaussianHjmModel",
-            "constructor" => "gaussian_hjm_model",
+            "typename" => "DiffFusion.GaussianHjmModelStatic",
+            "constructor" => "gaussian_hjm_model_static",
             "alias" => "EUR",
             "delta" => OrderedDict{String, Any}(
                 "typename" => "DiffFusion.BackwardFlatParameter",
@@ -238,8 +238,8 @@ using YAML
                     "quanto_model" => "nothing",
                     ),
                 OrderedDict(
-                    "typename" => "DiffFusion.GaussianHjmModel",
-                    "constructor" => "gaussian_hjm_model",
+                    "typename" => "DiffFusion.GaussianHjmModelStatic",
+                    "constructor" => "gaussian_hjm_model_static",
                     "alias" => "EUR",
                     "delta" => OrderedDict{String, Any}(
                         "typename" => "DiffFusion.BackwardFlatParameter",
@@ -302,7 +302,7 @@ using YAML
             DiffFusion.CorrelationHolder,
             DiffFusion.LognormalAssetModel,
             DiffFusion.GaussianHjmModel,
-            DiffFusion.GaussianHjmModel,
+            DiffFusion.GaussianHjmModelStatic,
             DiffFusion.LognormalAssetModel,
             DiffFusion.SimpleModel,
         ]

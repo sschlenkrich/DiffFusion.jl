@@ -1,7 +1,7 @@
 
 """
     forward_rate_variance(
-        m::GaussianHjmModel,
+        m::Union{GaussianHjmModel, GaussianHjmModelStatic},
         t::ModelTime,
         T::ModelTime,
         T0::ModelTime,
@@ -18,7 +18,7 @@ If `t ≤ T0` then we calculate the variance for a forward-looking rate. If
 `t = T1` then we calculate the variance for a backward-looking rate.
 """
 function forward_rate_variance(
-    m::GaussianHjmModel,
+    m::Union{GaussianHjmModel, GaussianHjmModelStatic},
     t::ModelTime,
     T::ModelTime,
     T0::ModelTime,
@@ -53,7 +53,7 @@ end
 
 """
     forward_rate_variance(
-        m::GaussianHjmModel,
+        m::Union{GaussianHjmModel, GaussianHjmModelStatic},
         alias::String,
         t::ModelTime,
         T::ModelTime,
@@ -67,7 +67,7 @@ or backward-looking forward rate.
 This function implements the Model interface function.
 """
 function forward_rate_variance(
-    m::GaussianHjmModel,
+    m::Union{GaussianHjmModel, GaussianHjmModelStatic},
     alias::String,
     t::ModelTime,
     T::ModelTime,

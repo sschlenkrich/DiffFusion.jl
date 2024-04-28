@@ -1,8 +1,8 @@
 
 "Wrap function definitions for ν1² to avoid name collisions."
 function _variance_t_T0(
-    dom_model::GaussianHjmModel,
-    for_model::GaussianHjmModel,
+    dom_model::Union{GaussianHjmModel, GaussianHjmModelStatic},
+    for_model::Union{GaussianHjmModel, GaussianHjmModelStatic},
     ch::CorrelationHolder,
     t::ModelTime,
     T0::ModelTime,
@@ -26,8 +26,8 @@ end
 
 "Wrap function definitions for ν2² to avoid name collisions."
 function _variance_T0_T1(
-    dom_model::GaussianHjmModel,
-    for_model::GaussianHjmModel,
+    dom_model::Union{GaussianHjmModel, GaussianHjmModelStatic},
+    for_model::Union{GaussianHjmModel, GaussianHjmModelStatic},
     ast_model::LognormalAssetModel,
     ch::CorrelationHolder,
     t::ModelTime,
@@ -56,7 +56,7 @@ end
 
 "Wrap function definitions for ν3² to avoid name collisions."
 function _variance_T1_T2(
-    dom_model::GaussianHjmModel,
+    dom_model::Union{GaussianHjmModel, GaussianHjmModelStatic},
     ch::CorrelationHolder,
     T1::ModelTime,
     T2::ModelTime,
@@ -73,8 +73,8 @@ end
 
 """
     log_asset_convexity_adjustment(
-        dom_model::GaussianHjmModel,
-        for_model::GaussianHjmModel,
+        dom_model::Union{GaussianHjmModel, GaussianHjmModelStatic},
+        for_model::Union{GaussianHjmModel, GaussianHjmModelStatic},
         ast_model::LognormalAssetModel,
         t::ModelTime,
         T0::ModelTime,
@@ -85,8 +85,8 @@ end
 Calculate convexity adjustment for year-on-year coupons of tradeable assets.
 """
 function log_asset_convexity_adjustment(
-    dom_model::GaussianHjmModel,
-    for_model::GaussianHjmModel,
+    dom_model::Union{GaussianHjmModel, GaussianHjmModelStatic},
+    for_model::Union{GaussianHjmModel, GaussianHjmModelStatic},
     ast_model::LognormalAssetModel,
     t::ModelTime,
     T0::ModelTime,

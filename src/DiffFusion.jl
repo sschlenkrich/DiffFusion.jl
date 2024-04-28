@@ -17,6 +17,7 @@ using Random
 using Roots
 using Sobol
 using SparseArrays
+using StaticArrays
 using Zygote
 
 import Base.length
@@ -46,6 +47,7 @@ include("models/hybrid/CompositeModel.jl")
 include("models/hybrid/SimpleModel.jl")
 include("models/rates/SeparableHjmModel.jl")
 include("models/rates/GaussianHjmModel.jl")
+include("models/rates/GaussianHjmModelStatic.jl")
 include("models/rates/ForwardRateVolatility.jl")
 include("models/rates/SwapRateVolatility.jl")
 include("models/rates/SwapRateCalibration.jl")
@@ -127,5 +129,5 @@ include("chainrules/simulations.jl")
 "List of function names eligible for de-serialisation."
 const _eligible_func_names = [ string(n) for n in names(DiffFusion; all = true, imported = false) ]
 
-include("precompile/precompile.jl")
+# include("precompile/precompile.jl")
 end

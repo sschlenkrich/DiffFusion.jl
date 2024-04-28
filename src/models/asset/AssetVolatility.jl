@@ -2,8 +2,8 @@
 """
     asset_variance(
         ast_model::LognormalAssetModel,
-        dom_model::Union{GaussianHjmModel, Nothing},
-        for_model::Union{GaussianHjmModel, Nothing},
+        dom_model::Union{GaussianHjmModel, GaussianHjmModelStatic, Nothing},
+        for_model::Union{GaussianHjmModel, GaussianHjmModelStatic, Nothing},
         ch::CorrelationHolder,
         s::ModelTime,
         t::ModelTime,
@@ -18,8 +18,8 @@ requires more testing.
 """
 function asset_variance(
     ast_model::Union{LognormalAssetModel, Nothing},
-    dom_model::Union{GaussianHjmModel, Nothing},
-    for_model::Union{GaussianHjmModel, Nothing},
+    dom_model::Union{GaussianHjmModel, GaussianHjmModelStatic, Nothing},
+    for_model::Union{GaussianHjmModel, GaussianHjmModelStatic, Nothing},
     ch::CorrelationHolder,
     s::ModelTime,
     t::ModelTime,
@@ -52,8 +52,8 @@ end
 """
     model_implied_volatilties(
         ast_model::LognormalAssetModel,
-        dom_model::Union{GaussianHjmModel, Nothing},
-        for_model::Union{GaussianHjmModel, Nothing},
+        dom_model::Union{GaussianHjmModel, GaussianHjmModelStatic, Nothing},
+        for_model::Union{GaussianHjmModel, GaussianHjmModelStatic, Nothing},
         ch::CorrelationHolder,
         option_times::AbstractVector,
         )
@@ -62,8 +62,8 @@ Calculate model-implied volatilities in hybrid asset model.
 """
 function model_implied_volatilties(
     ast_model::LognormalAssetModel,
-    dom_model::Union{GaussianHjmModel, Nothing},
-    for_model::Union{GaussianHjmModel, Nothing},
+    dom_model::Union{GaussianHjmModel, GaussianHjmModelStatic, Nothing},
+    for_model::Union{GaussianHjmModel, GaussianHjmModelStatic, Nothing},
     ch::CorrelationHolder,
     option_times::AbstractVector,
     )
